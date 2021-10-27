@@ -19,9 +19,9 @@ namespace ZMQ.Infrastructure
                     switch (input = ReadLine()) {
                         case "add":
                             Write("Coordinates? (seperated by space): ");
-                            if (int.TryParse(ReadLine(), out int tmpa)
-                                    && int.TryParse(ReadLine(), out int tmpb)) {
-                                client.SendFrame($"{tmpa}-{tmpb}");
+                            string[] tmp = ReadLine().Split(' ');
+                            if (int.TryParse(tmp[0], out int x) && int.TryParse(tmp[1], out int y)) {
+                                client.SendFrame($"{x}-{y}");
                                 var msg = client.ReceiveFrameString();
                                 WriteLine($"received: {msg}");
                             } else {
@@ -41,6 +41,5 @@ namespace ZMQ.Infrastructure
         public void PrintHelp() {
             WriteLine("cmds:\n\tadd | help");
         }
-
     }
 }
