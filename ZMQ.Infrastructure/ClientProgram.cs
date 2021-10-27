@@ -16,11 +16,12 @@ namespace ZMQ.Infrastructure
                 string input = "";
                 while (input != "exit") {
                     Write($"/>: ");
+
                     switch (input = ReadLine()) {
-                        case "add":
+                        case "x":
                             Write("Coordinates? (seperated by space): ");
                             string[] tmp = ReadLine().Split(' ');
-                            if (int.TryParse(tmp[0], out int x) && int.TryParse(tmp[1], out int y)) {
+                            if (tmp.Length > 1 && int.TryParse(tmp[0], out int x) && int.TryParse(tmp[1], out int y)) {
                                 client.SendFrame($"{x}-{y}");
                                 var msg = client.ReceiveFrameString();
                                 WriteLine($"received: {msg}");
@@ -39,7 +40,7 @@ namespace ZMQ.Infrastructure
         }
 
         public void PrintHelp() {
-            WriteLine("cmds:\n\tadd | help");
+            WriteLine("cmds:\n\tx = fire | help");
         }
     }
 }

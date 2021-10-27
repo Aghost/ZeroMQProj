@@ -20,7 +20,7 @@ namespace ZMQ.Infrastructure
         }
 
         public void StartProvider() {
-            WriteLine("starting server...");
+            WriteLine("Server started...");
 
             using (var server = new ResponseSocket()) {
                 server.Bind("tcp://*:5555");
@@ -39,16 +39,13 @@ namespace ZMQ.Infrastructure
             int x = int.Parse(coords.Split('-')[0]);
             int y = int.Parse(coords.Split('-')[1]);
 
-            if (_Board[x][y] == '1') {
-                return "HIT!";
-            } else {
-                FlipCoord(x, y);
-                return "MISS!, flipping bit";
-            }
+
+            return _Board[x][y] == '1' ? FlipCoord(x, y) : "MISS!";
         }
 
-        private void FlipCoord(int x, int y) {
+        private string FlipCoord(int x, int y) {
             _Board[x][y] = _Board[x][y] == '1' ? '0' : '1';
+            return "HIT!";
         }
 
         private void PrintBoard() {
