@@ -2,7 +2,7 @@
 using System.IO;
 using ZMQ.Infrastructure;
 
-namespace ZMQ.App
+namespace ZMQ.Server
 {
     class Program
     {

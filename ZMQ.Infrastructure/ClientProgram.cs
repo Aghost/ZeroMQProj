@@ -12,14 +12,15 @@ namespace ZMQ.Infrastructure
         {
             using (var client = new RequestSocket()) {
                 client.Connect("tcp://localhost:5555");
-                string input = "";
 
-                Write($"/>: ");
-                while ((input = ReadLine()) != "exit") {
-                    switch(input) {
+                string input = "";
+                while (input != "exit") {
+                    Write($"/>: ");
+                    switch (input = ReadLine()) {
                         case "add":
                             Write("Coordinates? (seperated by space): ");
-                            if (int.TryParse(ReadLine(), out int tmpa) && int.TryParse(ReadLine(), out int tmpb)) {
+                            if (int.TryParse(ReadLine(), out int tmpa)
+                                    && int.TryParse(ReadLine(), out int tmpb)) {
                                 client.SendFrame($"{tmpa}-{tmpb}");
                                 var msg = client.ReceiveFrameString();
                                 WriteLine($"received: {msg}");
